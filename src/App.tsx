@@ -18,6 +18,8 @@ import {
   useNavigationContainerRef,
 } from '@react-navigation/native';
 import React, { useRef } from 'react';
+import { Provider } from 'react-redux';
+import { store } from './store/store';
 // import useCachedResources from './hooks/useCachedResources';
 
 export default function App() {
@@ -34,38 +36,32 @@ export default function App() {
   const routeNameRef = useRef<string>();
 
 
+
   const [isReady, setIsReady] = React.useState<boolean>(!__DEV__);
   const [currentRoute, setCurrentRoute] = React.useState<string>('');
 
   const [initialState, setInitialState] = React.useState<
     InitialState | undefined
   >(undefined);
-  return (
-    <SafeAreaProvider>
-    <NavigationContainer
-      ref={navigationRef}
-      initialState={initialState}
-      onReady={() => {
-        routeNameRef.current = navigationRef?.getCurrentRoute()?.name;
-      }}
-      onStateChange={state => {
-        const currentRouteName = navigationRef?.getCurrentRoute()?.name;
-        setCurrentRoute(currentRouteName || '');
+  return !fontsLoaded ? <></> :  
+    <Provider store={store}>
+      <SafeAreaProvider>
+        <NavigationContainer
+          ref={navigationRef}
+          initialState={initialState}
+          onReady={() => {
+            routeNameRef.current = navigationRef?.getCurrentRoute()?.name;
+          }}
+          onStateChange={state => {
+            const currentRouteName = navigationRef?.getCurrentRoute()?.name;
+            setCurrentRoute(currentRouteName || '');
 
-      }}
-    >
-      <RootNavigator />
+          }}
+        >
+          <RootNavigator />
 
-    </NavigationContainer>
-    </SafeAreaProvider>
-  );
+        </NavigationContainer>
+      </SafeAreaProvider>
+    </Provider>   
+  ;
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

@@ -1,0 +1,12 @@
+{
+  "clients": [
+    {"label": "client1","value": "client1"},
+    {"label": "client2","value": "client2"},
+    {"label": "client3","value": "client3"}
+  ],
+  "categories": [
+    {"label": "Goal Evidence","value": "Goal Evidence"},
+    {"label": "Support Coordination","value": "Support Coordination"},
+    {"label": "Active Duty","value": "Active Duty"}
+  ]
+}
